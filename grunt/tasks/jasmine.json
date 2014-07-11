@@ -1,0 +1,15 @@
+{
+	"options": {
+		"vendor": [
+			"bower_components/jquery/dist/jquery.js",
+			"bower_components/gwajs/src/gwa.EventDispatcher.js"
+		],
+		"specs": [
+			"tests/*.test.js"
+		]
+	},
+	"src": [
+		"src/GT.UI.TabBar.js",
+		"src/GT.UI.Tab.js"
+	]
+}
