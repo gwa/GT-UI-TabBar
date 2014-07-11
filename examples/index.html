@@ -2,22 +2,37 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>GT.UI.TabBar</title>
+	<link rel="stylesheet" href="../src/css-compiled/gt-ui-tabbar.css">
 </head>
 <body>
 
-	<ul class="gt-ui-tabbar">
+	<h1>GT.UI.TabBar</h1>
+
+	<h2>Default</h2>
+
+	<ul class="gt-ui-tabbar hide-nojs">
 		<li data-id="first">First tab item</li>
 		<li data-id="second">Second tab item</li>
 		<li data-id="third">Third tab item</li>
 		<li data-id="fourth">Fourth tab item</li>
 	</ul>
 
+	<h2>Centered</h2>
+
+	<ul class="gt-ui-tabbar gt-ui-tabbar-centered hide-nojs">
+		<li data-id="first">First tab item</li>
+		<li data-id="second">Second tab item</li>
+		<li data-id="third">Third tab item</li>
+		<li data-id="fourth">Fourth tab item</li>
+		<li data-id="fifth">Fifth tab item is longer</li>
+	</ul>
+
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/gwajs/src/gwa.EventDispatcher.js"></script>
 
-	<script src="../src/GT.UI.TabBar.js"></script>
-	<script src="../src/GT.UI.Tab.js"></script>
+	<script src="../src/js/GT.UI.TabBar.js"></script>
+	<script src="../src/js/GT.UI.Tab.js"></script>
 	<script>
 	$(document).ready(function() {
 		$('.gt-ui-tabbar').each(function() {

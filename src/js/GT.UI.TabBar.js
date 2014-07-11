@@ -1,3 +1,5 @@
+/* global gwa */
+
 window.GT = window.GT || {};
 window.GT.UI = window.GT.UI || {};
 
@@ -29,13 +31,19 @@ window.GT.UI = window.GT.UI || {};
 		 * @property {gwa.EventDispatcher} _dispatcher
 		 * @private
 		 */
-		_dispatcher = new gwa.EventDispatcher,
+		_dispatcher = new gwa.EventDispatcher(),
 
 		/**
 		 * @property {Array} _tabs
 		 * @private
 		 */
 		_tabs,
+
+		/**
+		 * @property {Number} _requiredwidth
+		 * @private
+		 */
+		_requiredwidth,
 
 		/**
 		 * @property {Array} _activetab
@@ -46,8 +54,11 @@ window.GT.UI = window.GT.UI || {};
 		function init() {
 			if (typeof _jq === 'undefined') {
 				create();
+			} else {
+				_jq.removeClass('hide-nojs');
 			}
 			initTabs();
+			listen();
 		}
 
 		function create() {
@@ -70,10 +81,42 @@ window.GT.UI = window.GT.UI || {};
 			}
 			// activate first tab
 			_interface.activateTab(_tabs[0].getId());
+			handleWindowResize();
+			listen();
 		}
 
 		function handleTabClick( tab ) {
 			_interface.activateTab(tab.getId());
+		}
+
+		function listen() {
+			$(window).on('resize', handleWindowResize);
+		}
+
+		function handleWindowResize() {
+			if (!_jq.parent()) {
+				return;
+			}
+			if (_jq.parent().innerWidth() < getRequiredWidth()) {
+				_jq.addClass('stacked');
+			} else {
+				_jq.removeClass('stacked');
+			}
+		}
+
+		function getRequiredWidth() {
+			if (typeof _requiredwidth === 'undefined') {
+				_requiredwidth = calculateRequiredWidth();
+			}
+			return _requiredwidth;
+		}
+
+		function calculateRequiredWidth() {
+			var w = 0;
+			_jq.find('span').each(function() {
+				w += $(this).outerWidth();
+			});
+			return w;
 		}
 
 		/* ---- public interface ---- */
@@ -97,8 +140,8 @@ window.GT.UI = window.GT.UI || {};
 				tab = new ns.Tab(jq);
 			_jq.append(jq);
 			_tabs.push(tab);
-
-		}
+			_requiredwidth = null;
+		};
 
 		_interface.jq = function() {
 			return _jq;

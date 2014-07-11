@@ -1,3 +1,5 @@
+/* global gwa */
+
 window.GT = window.GT || {};
 window.GT.UI = window.GT.UI || {};
 
@@ -29,7 +31,7 @@ window.GT.UI = window.GT.UI || {};
 		 * @property {gwa.EventDispatcher} _dispatcher
 		 * @private
 		 */
-		_dispatcher = new gwa.EventDispatcher,
+		_dispatcher = new gwa.EventDispatcher(),
 
 		/**
 		 * @property {String} _id
@@ -59,10 +61,6 @@ window.GT.UI = window.GT.UI || {};
 
 		function listen() {
 			_jq.on('click', handleClick);
-		}
-
-		function unlisten() {
-			_jq.off('click', handleClick);
 		}
 
 		function handleClick() {

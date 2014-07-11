@@ -9,7 +9,7 @@
 		]
 	},
 	"src": [
-		"src/GT.UI.TabBar.js",
-		"src/GT.UI.Tab.js"
+		"src/js/GT.UI.TabBar.js",
+		"src/js/GT.UI.Tab.js"
 	]
 }
