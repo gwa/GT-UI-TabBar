@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+	<ul class="gt-ui-tabbar">
+		<li data-id="first">First tab item</li>
+		<li data-id="second">Second tab item</li>
+		<li data-id="third">Third tab item</li>
+		<li data-id="fourth">Fourth tab item</li>
+	</ul>
+
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/gwajs/src/gwa.EventDispatcher.js"></script>
+
+	<script src="../src/GT.UI.TabBar.js"></script>
+	<script src="../src/GT.UI.Tab.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('.gt-ui-tabbar').each(function() {
+			new GT.UI.TabBar($(this));
+		});
+	});
+	</script>
+</body>
+</html>

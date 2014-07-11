@@ -9,7 +9,7 @@ window.GT.UI = window.GT.UI || {};
  */
 (function( ns, $ ) {
 
-	ns.Tab = function( jq, tabbar ) {
+	ns.Tab = function( jq ) {
 
 		// declare private variables
 		var
@@ -35,7 +35,13 @@ window.GT.UI = window.GT.UI || {};
 		 * @property {String} _id
 		 * @private
 		 */
-		_id;
+		_id,
+
+		/**
+		 * @property {Boolean} _isactive
+		 * @private
+		 */
+		_isactive;
 
 		function init() {
 			_id = _jq.attr('data-id');
@@ -60,6 +66,9 @@ window.GT.UI = window.GT.UI || {};
 		}
 
 		function handleClick() {
+			if (_isactive) {
+				return;
+			}
 			_dispatcher.dispatch('CLICK', _interface);
 		}
 
@@ -77,12 +86,18 @@ window.GT.UI = window.GT.UI || {};
 
 		_interface.activate = function() {
 			_jq.addClass('active');
+			_isactive = true;
 			_dispatcher.dispatch('ACTIVATE', _interface);
 		};
 
 		_interface.deactivate = function() {
 			_jq.removeClass('active');
+			_isactive = false;
 			_dispatcher.dispatch('DEACTIVATE', _interface);
+		};
+
+		_interface.isActive = function() {
+			return _isactive;
 		};
 
 		_interface.on = function( event, func, obj, once ) {

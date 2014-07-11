@@ -55,9 +55,13 @@ window.GT.UI = window.GT.UI || {};
 		}
 
 		function initTabs() {
+			var f;
 			_tabs = [];
-			var f = function() {
-				_tabs.push(new ns.Tab($(this), _interface));
+			f = function() {
+				var tab;
+				tab = new ns.Tab($(this));
+				tab.on('CLICK', handleTabClick);
+				_tabs.push(tab);
 			};
 			_jq.find('li').each(f);
 			// activate a tab
@@ -65,7 +69,11 @@ window.GT.UI = window.GT.UI || {};
 				return;
 			}
 			// activate first tab
-			//_interface.activateTab(_tabs[0].getId());
+			_interface.activateTab(_tabs[0].getId());
+		}
+
+		function handleTabClick( tab ) {
+			_interface.activateTab(tab.getId());
 		}
 
 		/* ---- public interface ---- */
@@ -77,8 +85,20 @@ window.GT.UI = window.GT.UI || {};
 			}
 			if (typeof _activetab !== 'undefined') {
 				_activetab.deactivate();
+				_dispatcher.dispatch('DEACTIVATE_TAB', _activetab.getId());
 			}
+			tab.activate();
+			_activetab = tab;
+			_dispatcher.dispatch('ACTIVATE_TAB', tab.getId());
 		};
+
+		_interface.addTab = function( id, label ) {
+			var jq = $('<li data-id="' + id + '">' + label + '</li>'),
+				tab = new ns.Tab(jq);
+			_jq.append(jq);
+			_tabs.push(tab);
+
+		}
 
 		_interface.jq = function() {
 			return _jq;
@@ -94,7 +114,7 @@ window.GT.UI = window.GT.UI || {};
 
 		_interface.getTabById = function( id ) {
 			var i, l = _tabs.length;
-			for (i = l; i >= 0; i--) {
+			for (i = 0; i < l; i++) {
 				if (_tabs[i].getId() === id) {
 					return _tabs[i];
 				}

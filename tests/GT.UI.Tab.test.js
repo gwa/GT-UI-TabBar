@@ -11,7 +11,7 @@ describe("A tab", function() {
 		expect(mytab.jq() instanceof jQuery).toBeTruthy();
 	});
 
-	it("has a text label wrapped in a span", function() {
+	it("wraps its text in a SPAN", function() {
 		var mytab = new GT.UI.Tab($('<li data-id="foo">foo</li>'));
 		expect(mytab.jq().html()).toEqual('<span>foo</span>');
 	});
@@ -42,7 +42,7 @@ describe("A tab", function() {
 		expect(mytab.jq().hasClass('active')).toBeFalsy();
 	});
 
-	it("dispatches events when activated and deactivated", function() {
+	it("dispatches ACTIVATE and DEACTIVATE events passing the tab object when it is activated and deactivated", function() {
 		var mytab = new GT.UI.Tab($('<li data-id="foo">foo</li>'));
 		var isactive = false;
 
@@ -56,10 +56,17 @@ describe("A tab", function() {
 		mytab.on('DEACTIVATE', oninactive);
 
 		expect(isactive).toBeFalsy();
+		expect(mytab.isActive()).toBeFalsy();
+
 		mytab.activate();
+
+		expect(mytab.isActive()).toBeTruthy();
 		expect(isactive).toBeTruthy();
+
 		mytab.deactivate();
+
 		expect(isactive).toBeFalsy();
+		expect(mytab.isActive()).toBeFalsy();
 	});
 
 	it("dispatches an event when clicked", function() {
@@ -72,6 +79,19 @@ describe("A tab", function() {
 		mytab.jq().trigger('click');
 		expect(mytab.getId()).toEqual('foo');
 		expect(myid).toEqual('foo');
+	});
+
+	it("only dispatches an event when clicked and inactive", function() {
+		var mytab = new GT.UI.Tab($('<li data-id="foo">foo</li>'));
+		var myid = 'bar';
+		var f = function( tab ) {
+			myid = tab.getId();
+		};
+		mytab.on('CLICK', f);
+		mytab.activate();
+		mytab.jq().trigger('click');
+		expect(mytab.getId()).toEqual('foo');
+		expect(myid).toEqual('bar');
 	});
 
 });
