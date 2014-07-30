@@ -1,6 +1,6 @@
 {
   "options": {
-    "jshintrc": true
+    "jshintrc": "bower_components/gwa-codestyle/rc/.jshintrc"
   },
   "src": [
     "src/js/*.js"

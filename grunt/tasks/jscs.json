@@ -1,6 +1,6 @@
 {
-  "src": "src/*.js",
+  "src": "src/js/GT.UI.Tab.js",
   "options": {
-    "config": ".jscsrc"
+    "config": "bower_components/gwa-codestyle/rc/.jscsrc"
   }
 }

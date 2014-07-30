@@ -7,10 +7,12 @@ window.GT.UI = window.GT.UI || {};
  * @class Tab
  * @namespace  gwa
  * @constructor
- * @param  {jQuery} jq
  */
 (function( ns, $ ) {
 
+	/**
+	 * @param {jQuery} jq
+	 */
 	ns.Tab = function( jq ) {
 
 		// declare private variables
